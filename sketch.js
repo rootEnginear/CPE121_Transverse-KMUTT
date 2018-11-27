@@ -10,8 +10,7 @@ var start,
   end,
   path = [];
 var w, h;
-var nosolution = false;
-var stopdraw = false;
+var stopdraw = false, finalPath = false;
 
 p5.disableFriendlyErrors = true;
 
@@ -31,19 +30,19 @@ class Node {
     this.previous = undefined;
     this.wall = iswall;
 
-    this.show = function(color = color(85,85,85,125)) {
+    this.show = function (color = color(85, 85, 85, 125)) {
       if (this.wall) {
         noStroke();
         noFill();
       } else {
-        stroke(0,0,0,50);
+        stroke(0, 0, 0, 50);
         strokeWeight(1);
         fill(color);
       }
       rect(this.i * w, this.j * h, w, h);
     };
 
-    this.addNeighbors = function(grid) {
+    this.addNeighbors = function (grid) {
       this.i < cols - 1 && this.neighbors.push(grid[this.i + 1][this.j]);
       this.i > 0 && this.neighbors.push(grid[this.i - 1][this.j]);
       this.j < rows - 1 && this.neighbors.push(grid[this.i][this.j + 1]);
@@ -55,7 +54,7 @@ class Node {
       this.i < cols - 1 && this.j < rows - 1 && this.neighbors.push(grid[this.i + 1][this.j + 1]);
     };
 
-    this.clicked = function(e) {
+    this.clicked = function (e) {
       var d = abs(mouseX - (this.i * w + w / 2)) + abs(mouseY - (this.j * h + h / 2));
 
       if (d < w / 2 + h / 2 && !this.wall && start != grid[this.i][this.j] && end != grid[this.i][this.j]) {
@@ -66,12 +65,6 @@ class Node {
             cell.h = 0;
             cell.neighbors = [];
             cell.previous = undefined;
-          });
-        });
-
-        grid.forEach(col => {
-          col.forEach(cell => {
-            cell.addNeighbors(grid);
           });
         });
 
@@ -89,7 +82,6 @@ class Node {
         openSet.push(start);
         closedSet = [];
         path = [];
-        nosolution = false;
         stopdraw = false;
       }
     };
@@ -97,8 +89,10 @@ class Node {
 }
 
 function heuristic(a, b) {
-  // return abs(a.i-b.i)+abs(a.j-b.j)
-  return dist(a.i, a.j, b.i, b.j);
+  var dx = abs(a.i - b.i), dy = abs(a.j - b.j);
+  return max(dx, dy); // Cherbyshev
+  // return abs(a.i-b.i)+abs(a.j-b.j) // Manhattan
+  // return dist(a.i, a.j, b.i, b.j); // Euclidean
 }
 
 function setup() {
@@ -157,6 +151,7 @@ function draw() {
       // check if current is the end
       if (current == end) {
         stopdraw = true;
+        finalPath = true;
         updateHTML(1);
         console.info("DONE!");
       }
@@ -206,8 +201,8 @@ function draw() {
       })
     } else {
       // no solution
-      nosolution = true;
       stopdraw = true;
+      finalPath = true;
       updateHTML(-1);
       console.info("No solution!");
     }
@@ -227,7 +222,7 @@ function draw() {
   })
 
   // get path
-  if(!stopdraw){
+  if (!stopdraw || finalPath) {
     path = [];
     var temp = current;
     path.push(temp);
@@ -235,20 +230,20 @@ function draw() {
       path.push(temp.previous);
       temp = temp.previous;
     }
+    finalPath && ((finalPath = false));
   }
 
   // DRAW PATH
   noFill();
-  if(stopdraw){
+  if (stopdraw) {
     // stroke(color(0, 158, 219));
     stroke(color(255, 255, 0));
-  }else{
-    stroke(color(242,101,34));
+  } else {
+    stroke(color(242, 101, 34));
   }
-  strokeWeight(w*0.7);
+  strokeWeight(w * 0.7);
 
   beginShape();
-  curveVertex(path[0].i * w + w / 2, path[0].j * h + h / 2);
   path.forEach(e => {
     curveVertex(e.i * w + w / 2, e.j * h + h / 2)
   })
@@ -263,7 +258,7 @@ function mousePressed() {
   });
 }
 
-function updateHTML(status = 0){
+function updateHTML(status = 0) {
   var el = document.getElementById("statusBox");
   switch (status) {
     case -1:
@@ -271,7 +266,7 @@ function updateHTML(status = 0){
       el.innerText = "No solution found!";
       break;
     case 0:
-      el.classList.remove("failed","success")
+      el.classList.remove("failed", "success")
       el.innerText = "Searching...";
       break;
     case 1:
