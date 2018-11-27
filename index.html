@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css'/>
+  <style>
+    #map > canvas {
+      width: 100% !important;
+      height: auto !important;
+    }
+
+    #statusBox {
+      font-size: 2rem;
+      text-align: center;
+      font-weight: bold;
+      padding: .5rem 0;
+      background: orange;
+      color: black;
+    }
+    #statusBox.success {
+      background: greenyellow;
+      color: black;
+    }
+    #statusBox.failed {
+      background: red;
+      color: white;
+    }
+  </style>
+  <title>The most efficient path to transverse between building in KMUTT</title>
+</head>
+<body style="margin:0; display:flex; align-items: center; justify-content: center; height: 100vh;">
+  <div class="container">
+    <div class="row">
+      <div class="six columns">
+        <div id="map" style="box-shadow: 0 2px 2px 0 rgba(0,0,0,0.07), 0 3px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.1);"></div>
+      </div>
+      <div class="six columns">
+        <h1>The most efficient path to transverse between building in KMUTT</h1>
+        <ul><b>How to use:</b>
+          <li>
+            <b>Left click</b> (on available square) to set starting point.
+          </li>
+          <li>
+            <b>Right click</b> (or middle click) to set finish point.
+          </li>
+        </ul>
+        <div id="statusBox">
+          Searching...
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
+  <script src="./sketch.js"></script>
+</body>
+</html>
