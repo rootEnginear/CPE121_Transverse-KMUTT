@@ -5,9 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
-  <!-- <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css"> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <style>
+    *{
+      line-height: 1.5rem;
+      letter-spacing: .2px;
+    }
+    h1{
+      letter-spacing: .7px;
+    }
     #map {
       box-shadow: 0 2px 2px 0 rgba(0,0,0,0.07), 0 3px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.1);
     }
@@ -16,7 +22,7 @@
       height: auto !important;
     }
     body {
-      margin:56px 0;
+      margin:56px 6%;
       display:flex;
       align-items: center;
       justify-content: center;
@@ -32,6 +38,9 @@
     .divider {
       margin-bottom: 1.2rem;
     }
+    .math {
+      letter-spacing: normal;
+    }
   </style>
   <title>The most efficient path to transverse between building in KMUTT</title>
 </head>
@@ -43,7 +52,7 @@
       </div>
       <div class="column col-6 col-sm-12">
         <br>
-        <h1>The most efficient path to transverse between building in KMUTT</h1>
+        <h1>The most efficient path to transverse between buildings in KMUTT</h1>
         <ul><b>How to play:</b>
           <li>
             <b>Left click</b> (on available square) to set starting point.
@@ -62,7 +71,7 @@
       <div class="column col-12">
         <h1>Abstract</h1>
         <p>
-          In this project, we would like to explore and solve ‘the most efficient path to transverse between building in KMUTT’ problem. In many times, standing at an intersection and asking yourself, “What is the shortest path to get to building A” or “How can I get to building B quickest”. This problem is difficult to solve for humans because of our perceptions which are different from people to people. In fact, we can lose our time and important opportunity by using inefficient path. Moreover, using online tools such as Google Maps can give you inaccurate answer as it can only process roadways, not footpath or shortcuts between buildings. So, we want to apply our discrete mathematics knowledge to it.
+          In this project, we would like to explore and solve ‘the most efficient path to transverse between buildings in KMUTT’ problem. In many times, standing at an intersection and asking yourself, “What is the shortest path to get to building A” or “How can I get to building B quickest”. This problem is difficult to solve for humans because of our perceptions which are different from people to people. In fact, we can lose our time and important opportunity by using inefficient path. Moreover, using online tools such as Google Maps can give you inaccurate answer as it can only process roadways, not footpath or shortcuts between buildings. So, we want to apply our discrete mathematics knowledge to it.
         </p>
       </div>
     </div>
@@ -71,7 +80,12 @@
       <div class="column col-12">
         <h1>A* search algorithm</h1>
         <p>
-          A* search algorithm is the algorithm which use heuristic function in calculation for the shortest path. Because A* search algorithm did not apply calculation for every node in graph, it is very popular algorithm to use because of its good performance. When A* algorithm is applied, it performs calculation <img alt="f(x) = g(x) + h(x)" src="https://latex.codecogs.com/png.latex?\bg_white&space;f(x)&space;=&space;g(x)&space;&plus;&space;h(x)"> to starting node’s neighbor nodes which <img alt="g(x)" src="https://latex.codecogs.com/png.latex?\bg_white&space;g(x)"> is the cost (how much it takes from starting node to it), and <img alt="h(x)" src="https://latex.codecogs.com/png.latex?\bg_white&space;h(x)"> is the heuristic value (how long from it to target node). By traversing to the next lowest <img alt="f(x)" src="https://latex.codecogs.com/png.latex?\bg_white&space;f(x)"> node and perform calculation to the node’s neighbors one by one, you will be ended up with the shortest path from the starting node to the target node.
+          A* search algorithm is the algorithm which use heuristic function in calculation for the shortest path. Because A* search algorithm did not apply calculation for every node in graph, it is very popular algorithm to use because of its good performance. When A* algorithm is applied, it performs calculation <span class="math">f(x) = g(x) + h(x)</span> to starting node’s neighbor nodes which <span class="math">g(x)</span> is the cost (how much it takes from starting node to it), and <span class="math">h(x)</span> is the heuristic value (how long from it to target node). By traversing to the next lowest <span class="math">f(x)</span> node and perform calculation to the node’s neighbors one by one, you will be ended up with the shortest path from the starting node to the target node.
+          <ul>Heuristic functions:
+            <li>Manhattan: <span class="math">D_M=\left|x_2-x_1\right|+\left|y_2-y_1\right|</span></li>
+            <li>Euclidean: <span class="math">D_E=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}</span></li>
+            <li>Chebyshev: <span class="math">D_C=\mathrm{max}(\left|x_2-x_1\right|,\left|y_2-y_1\right|)</span></li>
+          </ul>
         </p>
       </div>
     </div>
@@ -87,6 +101,7 @@
 
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
   <script src="./sketch.js"></script>
   <script src="./script.js"></script>
 </body>
