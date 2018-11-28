@@ -180,10 +180,10 @@ function draw() {
            * So I want to refactorize this:
            * // if (openSet.includes(neighbor)) {
            * //   if (tempG < neighbor.g) {
-           * //     ::foo
+           * //     <-- foo -->
            * //   }
            * // } else {
-           * //   ::foo
+           * //   <-- foo -->
            * //   openSet.push(neighbor);
            * // }
            * // ...
@@ -262,15 +262,18 @@ function updateHTML(status = 0) {
   var el = document.getElementById("statusBox");
   switch (status) {
     case -1:
-      el.classList.add("failed");
+      el.classList.remove("toast-warning");
+      el.classList.add("toast-error");
       el.innerText = "No solution found!";
       break;
     case 0:
-      el.classList.remove("failed", "success")
+      el.classList.remove("toast-error", "toast-success");
+      el.classList.add("toast-warning");
       el.innerText = "Searching...";
       break;
     case 1:
-      el.classList.add("success")
+      el.classList.remove("toast-warning");
+      el.classList.add("toast-success");
       el.innerText = "Path found!";
       break;
   }

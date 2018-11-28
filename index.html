@@ -4,41 +4,47 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css'/>
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+  <!-- <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css"> -->
   <style>
+    #map {
+      box-shadow: 0 2px 2px 0 rgba(0,0,0,0.07), 0 3px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.1);
+    }
     #map > canvas {
       width: 100% !important;
       height: auto !important;
     }
-
-    #statusBox {
-      font-size: 2rem;
-      text-align: center;
-      font-weight: bold;
-      padding: .5rem 0;
-      background: orange;
-      color: black;
+    body {
+      margin:56px 0;
+      display:flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
     }
-    #statusBox.success {
-      background: greenyellow;
-      color: black;
+    p{
+      text-indent: 5ch;
+      text-align: justify;
     }
-    #statusBox.failed {
-      background: red;
-      color: white;
+    .m-top-2 {
+      margin-top: 2rem;
+    }
+    .divider {
+      margin-bottom: 1.2rem;
     }
   </style>
   <title>The most efficient path to transverse between building in KMUTT</title>
 </head>
-<body style="margin:0; display:flex; align-items: center; justify-content: center; height: 100vh;">
-  <div class="container">
-    <div class="row">
-      <div class="six columns">
-        <div id="map" style="box-shadow: 0 2px 2px 0 rgba(0,0,0,0.07), 0 3px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.1);"></div>
+<body>
+  <div class="container grid-lg">
+    <div class="columns">
+      <div class="column col-6 col-sm-12">
+        <div id="map" oncontextmenu="return false"></div>
       </div>
-      <div class="six columns">
+      <div class="column col-6 col-sm-12">
+        <br>
         <h1>The most efficient path to transverse between building in KMUTT</h1>
-        <ul><b>How to use:</b>
+        <ul><b>How to play:</b>
           <li>
             <b>Left click</b> (on available square) to set starting point.
           </li>
@@ -46,14 +52,42 @@
             <b>Right click</b> (or middle click) to set finish point.
           </li>
         </ul>
-        <div id="statusBox">
+        <div id="statusBox" class="text-center toast toast-warning">
           Searching...
         </div>
       </div>
     </div>
-    
+    <div class="divider m-top-2"></div>
+    <div class="columns">
+      <div class="column col-12">
+        <h1>Abstract</h1>
+        <p>
+          In this project, we would like to explore and solve ‘the most efficient path to transverse between building in KMUTT’ problem. In many times, standing at an intersection and asking yourself, “What is the shortest path to get to building A” or “How can I get to building B quickest”. This problem is difficult to solve for humans because of our perceptions which are different from people to people. In fact, we can lose our time and important opportunity by using inefficient path. Moreover, using online tools such as Google Maps can give you inaccurate answer as it can only process roadways, not footpath or shortcuts between buildings. So, we want to apply our discrete mathematics knowledge to it.
+        </p>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="columns">
+      <div class="column col-12">
+        <h1>A* search algorithm</h1>
+        <p>
+          A* search algorithm is the algorithm which use heuristic function in calculation for the shortest path. Because A* search algorithm did not apply calculation for every node in graph, it is very popular algorithm to use because of its good performance. When A* algorithm is applied, it performs calculation <img alt="f(x) = g(x) + h(x)" src="https://latex.codecogs.com/png.latex?\bg_white&space;f(x)&space;=&space;g(x)&space;&plus;&space;h(x)"> to starting node’s neighbor nodes which <img alt="g(x)" src="https://latex.codecogs.com/png.latex?\bg_white&space;g(x)"> is the cost (how much it takes from starting node to it), and <img alt="h(x)" src="https://latex.codecogs.com/png.latex?\bg_white&space;h(x)"> is the heuristic value (how long from it to target node). By traversing to the next lowest <img alt="f(x)" src="https://latex.codecogs.com/png.latex?\bg_white&space;f(x)"> node and perform calculation to the node’s neighbors one by one, you will be ended up with the shortest path from the starting node to the target node.
+        </p>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="columns">
+      <div class="column col-12">
+        <h1>Applying algorithm to the problem</h1>
+        <p>
+          We apply the algorithm over an image which each pixel is a node, and tell the algorithm if some pixel is a node that cannot get to (like a solid building). Then, applied the algorithm over it. In the end, we will get a path from our starting point to the end. And yet, solve our problem.
+        </p>
+      </div>
+    </div>
+
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
   <script src="./sketch.js"></script>
+  <script src="./script.js"></script>
 </body>
 </html>
