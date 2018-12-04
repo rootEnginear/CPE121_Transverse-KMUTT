@@ -12,6 +12,9 @@ var stopdraw = false, finalPath = false;
 // 4-dir Mode
 var dir4mode = false;
 
+// dijkstra mode
+var dijkstra = false;
+
 p5.disableFriendlyErrors = true;
 
 function preload() {
@@ -20,25 +23,21 @@ function preload() {
 }
 
 class Node {
-  constructor(i, j, iswall = false) {
+  constructor(i, j) {
+    // position
     this.i = i;
     this.j = j;
+    // values
     this.f = 0;
     this.g = 0;
     this.h = 0;
     this.neighbors = [];
     this.previous = undefined;
-    this.wall = iswall;
 
-    this.show = function (color = color(85, 85, 85, 125)) {
-      if (this.wall) {
-        noStroke();
-        noFill();
-      } else {
-        stroke(0, 0, 0, 50);
-        strokeWeight(1);
-        fill(color);
-      }
+    this.show = function (bg = color(255, 255, 255, 100)) {
+      stroke(0, 0, 0, 50);
+      strokeWeight(1);
+      fill(bg);
       rect(this.i * w, this.j * h, w, h);
     };
 
@@ -60,14 +59,16 @@ class Node {
     this.clicked = function (e) {
       var d = abs(mouseX - (this.i * w + w / 2)) + abs(mouseY - (this.j * h + h / 2));
 
-      if (d < w / 2 + h / 2 && !this.wall && start != grid[this.i][this.j] && end != grid[this.i][this.j]) {
+      if (d < w / 2 + h / 2 && start != grid[this.i][this.j] && end != grid[this.i][this.j]) {
         grid.map(col => {
           col.map(cell => {
-            cell.f = 0;
-            cell.g = 0;
-            cell.h = 0;
-            cell.neighbors = [];
-            cell.previous = undefined;
+            if(cell){
+              cell.f = 0;
+              cell.g = 0;
+              cell.h = 0;
+              cell.neighbors = [];
+              cell.previous = undefined;
+            }
           });
         });
 
@@ -94,6 +95,9 @@ class Node {
 function heuristic(a, b) {
   var dx = abs(a.i - b.i), dy = abs(a.j - b.j);
   // return dist(a.i, a.j, b.i, b.j); // Euclidean
+  if(dijkstra){
+    return 0;
+  }
   if(dir4mode){
     return dx+dy; // Manhattan
   }else{
@@ -120,8 +124,7 @@ function setup() {
   // create nodes
   for (var i = 0; i < cols; i++) {
     for (var j = 0; j < rows; j++) {
-      var c = get(i, j);
-      grid[i][j] = new Node(i, j, c[0] == 0);
+      grid[i][j] = get(i, j)[0] == 0? null : new Node(i, j);
     }
   }
 
@@ -139,17 +142,14 @@ function draw() {
   image(realMap, 0, 0);
 
   if (!stopdraw) {
-
     // read set length
     var openSetLen = openSet.length;
     if (openSetLen > 0) {
       // there are nodes in openSet -> keep going
-
-      // find the winner for the least 'f' value
+      // find the winner with the least 'f' value
       var winner = 0;
       for (var i = 0; i < openSetLen; i++) {
         openSet[i].f < openSet[winner].f && (winner = i);
-        // (openSet[i].f < openSet[winner].f || (openSet[i].f == openSet[winner].f && openSet[i].h < openSet[winner].h)) && (winner = i);
       }
 
       // set current to the least 'f' value node
@@ -175,12 +175,12 @@ function draw() {
       // add current neighbors
       current.addNeighbors(grid);
 
-      // get current's neighbors
-      var neighbors = current.neighbors;
+      // get current's neighbors that is not null
+      var neighbors = current.neighbors.filter(node => node);
 
       neighbors.forEach(neighbor => {
-        // if the neighbor haven't visit yet and not a wall
-        if (!closedSet.includes(neighbor) && !neighbor.wall) {
+        // if the neighbor haven't visit yet
+        if (!closedSet.includes(neighbor)) {
           // new G for neighbor
           var newG = current.g + 1;
 
@@ -189,7 +189,6 @@ function draw() {
           if (!(!openSet.includes(neighbor) && openSet.push(neighbor)) != !(newG < neighbor.g)) {
             neighbor.g = newG;
             neighbor.h = heuristic(neighbor, end);
-            // neighbor.h = 0; // Dijkstra's algorithm
             neighbor.f = neighbor.g + neighbor.h;
             neighbor.previous = current;
           }
@@ -207,13 +206,7 @@ function draw() {
   // draw cell
   grid.forEach(col => {
     col.forEach(cell => {
-      if (cell == end) {
-        cell.show(color(255, 0, 0));
-      } else if (cell == start) {
-        cell.show(color(0, 255, 0));
-      } else {
-        cell.show(color(255, 255, 255, 100));
-      }
+      cell && cell != start && cell != end && cell.show();
     })
   })
 
@@ -221,18 +214,18 @@ function draw() {
   if (!stopdraw || finalPath) {
     path = [];
     var temp = current;
-    path.push(temp);
+    path.push(temp,temp);
     while (temp.previous) {
       path.push(temp.previous);
       temp = temp.previous;
     }
-    finalPath && ((finalPath = false));
+    path.push(temp);
+    finalPath && (finalPath = false);
   }
 
-  // DRAW PATH
+  // draw path
   noFill();
   if (stopdraw) {
-    // stroke(color(0, 158, 219));
     stroke(color(255, 255, 0));
   } else {
     stroke(color(242, 101, 34));
@@ -244,12 +237,16 @@ function draw() {
     curveVertex(e.i * w + w / 2, e.j * h + h / 2)
   })
   endShape();
+
+  // draw start/end
+  end.show(color(255, 0, 0));
+  start.show(color(0, 255, 0));
 }
 
 function mousePressed() {
   grid.forEach(col => {
     col.forEach(cell => {
-      cell.clicked(mouseButton);
+      cell && cell.clicked(mouseButton);
     });
   });
 }
