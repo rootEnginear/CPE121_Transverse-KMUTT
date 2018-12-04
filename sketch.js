@@ -1,16 +1,16 @@
-var pathMap;
+// variables for map
+var pathMap, realMap;
 
-var cols = 100;
-var rows = 100;
-var grid = new Array(cols);
-
-var openSet = [];
-var closedSet = [];
-var start,
-  end,
-  path = [];
+// variables for grid
+var cols = 100, rows = 100, grid = new Array(cols);
 var w, h;
+
+// variables for algorithm
+var openSet = [], closedSet = [], start, end, path = [];
 var stopdraw = false, finalPath = false;
+
+// 4-dir Mode
+var dir4mode = false;
 
 p5.disableFriendlyErrors = true;
 
@@ -48,12 +48,15 @@ class Node {
       this.j < rows - 1 && this.neighbors.push(grid[this.i][this.j + 1]);
       this.j > 0 && this.neighbors.push(grid[this.i][this.j - 1]);
 
-      this.i > 0 && this.j > 0 && this.neighbors.push(grid[this.i - 1][this.j - 1]);
-      this.i < cols - 1 && this.j > 0 && this.neighbors.push(grid[this.i + 1][this.j - 1]);
-      this.i > 0 && this.j < rows - 1 && this.neighbors.push(grid[this.i - 1][this.j + 1]);
-      this.i < cols - 1 && this.j < rows - 1 && this.neighbors.push(grid[this.i + 1][this.j + 1]);
+      if(!dir4mode){
+        this.i > 0 && this.j > 0 && this.neighbors.push(grid[this.i - 1][this.j - 1]);
+        this.i < cols - 1 && this.j > 0 && this.neighbors.push(grid[this.i + 1][this.j - 1]);
+        this.i > 0 && this.j < rows - 1 && this.neighbors.push(grid[this.i - 1][this.j + 1]);
+        this.i < cols - 1 && this.j < rows - 1 && this.neighbors.push(grid[this.i + 1][this.j + 1]);
+      }
     };
 
+    // onclick: move starting/ending point to this node position
     this.clicked = function (e) {
       var d = abs(mouseX - (this.i * w + w / 2)) + abs(mouseY - (this.j * h + h / 2));
 
@@ -90,9 +93,12 @@ class Node {
 
 function heuristic(a, b) {
   var dx = abs(a.i - b.i), dy = abs(a.j - b.j);
-  return max(dx, dy); // Cherbyshev
-  // return abs(a.i-b.i)+abs(a.j-b.j) // Manhattan
   // return dist(a.i, a.j, b.i, b.j); // Euclidean
+  if(dir4mode){
+    return dx+dy; // Manhattan
+  }else{
+    return max(dx, dy); // Cherbyshev
+  }
 }
 
 function setup() {
@@ -143,6 +149,7 @@ function draw() {
       var winner = 0;
       for (var i = 0; i < openSetLen; i++) {
         openSet[i].f < openSet[winner].f && (winner = i);
+        // (openSet[i].f < openSet[winner].f || (openSet[i].f == openSet[winner].f && openSet[i].h < openSet[winner].h)) && (winner = i);
       }
 
       // set current to the least 'f' value node
@@ -174,26 +181,15 @@ function draw() {
       neighbors.forEach(neighbor => {
         // if the neighbor haven't visit yet and not a wall
         if (!closedSet.includes(neighbor) && !neighbor.wall) {
-          var tempG = current.g + 1;
+          // new G for neighbor
+          var newG = current.g + 1;
 
-          /*
-           * So I want to refactorize this:
-           * // if (openSet.includes(neighbor)) {
-           * //   if (tempG < neighbor.g) {
-           * //     <-- foo -->
-           * //   }
-           * // } else {
-           * //   <-- foo -->
-           * //   openSet.push(neighbor);
-           * // }
-           * // ...
-           * So I rewrite this statement into:
-           * if((not include) xor (tempG < neighbor.g)){::foo}
-           * Since foo xor bar === !foo != !bar, Thus I used statement below
-           **/
-          if (!(!openSet.includes(neighbor) && openSet.push(neighbor)) != !(tempG < neighbor.g)) {
-            neighbor.g = tempG;
+          // 1. if openSet doesn't have neighbor -> add it
+          // 2. if openSet does have neighbor but newG is >= neighbor's g
+          if (!(!openSet.includes(neighbor) && openSet.push(neighbor)) != !(newG < neighbor.g)) {
+            neighbor.g = newG;
             neighbor.h = heuristic(neighbor, end);
+            // neighbor.h = 0; // Dijkstra's algorithm
             neighbor.f = neighbor.g + neighbor.h;
             neighbor.previous = current;
           }

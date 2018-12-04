@@ -1,0 +1,105 @@
+* {
+  line-height: 1.5rem;
+  letter-spacing: .2px;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  margin: 32px 6%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  min-height: 100vh;
+}
+
+h1 {
+  letter-spacing: .7px;
+}
+
+h1 > a.top {
+  text-decoration: none;
+  display: none;
+}
+
+h1:hover > a.top {
+  display: inline;
+}
+
+@media (max-width: 840px) {
+  h1 > a.top {
+    display: inline;
+  }
+}
+
+#map {
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.07), 0 3px 1px -2px rgba(0, 0, 0, 0.06), 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.07), 0 3px 1px -2px rgba(0, 0, 0, 0.06), 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+}
+
+#map > canvas {
+  width: 100% !important;
+  height: auto !important;
+}
+
+p {
+  text-indent: 5ch;
+  text-align: justify;
+}
+
+footer .small {
+  font-size: 80%;
+  line-height: 1rem;
+}
+
+footer .small > br {
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* ----- Spectre Custom ----- */
+.m-top-2 {
+  margin-top: 2rem;
+}
+
+.divider {
+  margin-bottom: .8rem;
+}
+
+.divider-vert[data-content]::after,
+.divider[data-content]::after {
+  -webkit-transform: translateY(-0.81rem);
+          transform: translateY(-0.81rem);
+}
+
+/* ----- Custom components ----- */
+.math {
+  letter-spacing: normal;
+  white-space: nowrap;
+}
+
+.menu {
+  margin-right: .8rem;
+}
+
+.team {
+  text-transform: uppercase;
+  font-size: .8rem;
+  line-height: 1rem;
+}
+
+.team > ul {
+  list-style: none;
+  margin: 0;
+  margin-left: .8rem;
+}
+
+ul.condensed > li {
+  margin: 0;
+}
+/*# sourceMappingURL=style.css.map */

@@ -6,54 +6,25 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
-  <style>
-    *{
-      line-height: 1.5rem;
-      letter-spacing: .2px;
-    }
-    h1{
-      letter-spacing: .7px;
-    }
-    #map {
-      box-shadow: 0 2px 2px 0 rgba(0,0,0,0.07), 0 3px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.1);
-    }
-    #map > canvas {
-      width: 100% !important;
-      height: auto !important;
-    }
-    body {
-      margin:56px 6%;
-      display:flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-    }
-    p{
-      text-indent: 5ch;
-      text-align: justify;
-    }
-    .m-top-2 {
-      margin-top: 2rem;
-    }
-    .divider {
-      margin-bottom: 1.2rem;
-    }
-    .math {
-      letter-spacing: normal;
-    }
-  </style>
+  <link rel="stylesheet" href="./style.css">
   <title>The most efficient path to transverse between building in KMUTT</title>
 </head>
 <body>
-  <div class="container grid-lg">
+  <div class="container">
     <div class="columns">
-      <div class="column col-6 col-sm-12">
+      <div class="column col-6 col-md-12">
         <div id="map" oncontextmenu="return false"></div>
       </div>
-      <div class="column col-6 col-sm-12">
+      <div class="column col-6 col-md-12">
         <br>
         <h1>The most efficient path to transverse between buildings in KMUTT</h1>
-        <ul><b>How to play:</b>
+        <div class="team">
+          <ul class="condensed">
+            <li>61070501031 Nanthakorn Onsri</li>
+            <li>61070501054 Suthep Chanchuphol</li>
+          </ul>
+        </div>
+        <ul class="condensed"><b>How to play:</b>
           <li>
             <b>Left click</b> (on available square) to set starting point.
           </li>
@@ -66,39 +37,149 @@
         </div>
       </div>
     </div>
-    <div class="divider m-top-2"></div>
+    <div id="abstract" class="divider m-top-2"></div>
     <div class="columns">
-      <div class="column col-12">
-        <h1>Abstract</h1>
-        <p>
-          In this project, we would like to explore and solve ‘the most efficient path to transverse between buildings in KMUTT’ problem. In many times, standing at an intersection and asking yourself, “What is the shortest path to get to building A” or “How can I get to building B quickest”. This problem is difficult to solve for humans because of our perceptions which are different from people to people. In fact, we can lose our time and important opportunity by using inefficient path. Moreover, using online tools such as Google Maps can give you inaccurate answer as it can only process roadways, not footpath or shortcuts between buildings. So, we want to apply our discrete mathematics knowledge to it.
-        </p>
+      <aside class="column col-3 col-md-12">
+      <ul class="menu">
+        <li class="divider" data-content="TABLE OF CONTENTS"></li>
+        <li class="menu-item">
+          <a href="#abstract">Abstract</a>
+        </li>
+        <li class="menu-item">
+          <a href="#graphtheory">Graph Theory</a>
+        </li>
+        <li class="menu-item">
+          <a href="#weightedgraph">Weighted Graph</a>
+        </li>
+        <li class="menu-item">
+          <a href="#algorithm">Graph Traversal</a>
+        </li>
+        <li class="menu-item">
+          <a href="#heuristic">Heuristics Functions</a>
+        </li>
+        <li class="menu-item">
+          <a href="#astar">A* Search Algorithm</a>
+        </li>
+        <li class="menu-item">
+          <a href="#apply">Applying the Algorithm</a>
+        </li>
+        <li class="menu-item">
+          <a href="#ref">References</a>
+        </li>
+      </ul>
+      <br>
+      </aside>
+      <div class="column col-9 col-md-12">
+        <!-- CONTENT GOES HERE -->
+        <section class="columns">
+          <div class="column col-12">
+            <h1>Abstract <a href="#abstract" class="top">#</a></h1>
+            <p>
+              In this project, we would like to explore and solve ‘the most efficient path to transverse between buildings in KMUTT’ problem. In many times, standing at an intersection and asking yourself, “What is the shortest path to get to building A” or “How can I get to building B quickest”. This problem is difficult to solve for humans because of our perceptions which are different from people to people. In fact, we can lose our time and important opportunity by using inefficient path. Moreover, using online tools such as Google Maps can give you inaccurate answer as it can only process roadways, not footpath or shortcuts between buildings. So, we want to apply our discrete mathematics knowledge to it.
+            </p>
+          </div>
+        </section>
+        
+        <div id="graphtheory" class="divider"></div>
+        <section class="columns">
+          <div class="column col-12">
+            <h1>Graph Theory <a href="#abstract" class="top">#</a></h1>
+            <p>
+              Soon!
+            </p>
+          </div>
+        </section>
+        
+        <div id="weightedgraph" class="divider"></div>
+        <section class="columns">
+          <div class="column col-12">
+            <h1>Weighted Graph <a href="#abstract" class="top">#</a></h1>
+            <p>
+              Soon!
+            </p>
+          </div>
+        </section>
+        
+        <div id="algorithm" class="divider"></div>
+        <section class="columns">
+          <div class="column col-12">
+            <h1>Graph Traversal <a href="#abstract" class="top">#</a></h1>
+            <p>
+              Soon!
+            </p>
+          </div>
+        </section>
+        
+        <div id="heuristic" class="divider"></div>
+        <section class="columns">
+          <div class="column col-12">
+            <h1>Heuristic Functions <a href="#abstract" class="top">#</a></h1>
+            <p>
+              <ul class="condensed">
+                <li>Manhattan: <span class="math">H_M=D\times\left(\left|x_2-x_1\right|+\left|y_2-y_1\right|\right)</span></li>
+                <li>Euclidean: <span class="math">H_E=D\times\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}</span></li>
+                <li>Chebyshev: <span class="math">H_C=D\times\max(\left|x_2-x_1\right|,\left|y_2-y_1\right|)</span></li>
+                <!-- <li>Octile:    <span class="math">H_O=D_1\cdot\left(\left|x_2-x_1\right|+\left|y_2-y_1\right|\right)+\left(D_2-2D_1\right)\cdot\min\left(\left|x_2-x_1\right|,\left|y_2-y_1\right|\right)</span></li> -->
+              </ul>
+              When <span class="math">D</span> is the cost of a move.
+            </p>
+          </div>
+        </section>
+        
+        <div id="astar" class="divider"></div>
+        <section class="columns">
+          <div class="column col-12">
+            <h1>A* Search Algorithm <a href="#abstract" class="top">#</a></h1>
+            <p>
+              A* search algorithm is the algorithm which use heuristic function in calculation for the shortest path. Because A* search algorithm did not apply calculation for every node in graph, it is very popular algorithm to use because of its good performance. When A* algorithm is applied, it performs calculation <span class="math">f(x) = g(x) + h(x)</span> to starting node’s neighbor nodes which <span class="math">g(x)</span> is the cost (how much it takes from starting node to it), and <span class="math">h(x)</span> is the heuristic value (how long from it to target node). By traversing to the next lowest <span class="math">f(x)</span> node and perform calculation to the node’s neighbors one by one, you will be ended up with the shortest path from the starting node to the target node.
+            </p>
+          </div>
+        </section>
+        
+        <div id="apply" class="divider"></div>
+        <section class="columns">
+          <div class="column col-12">
+            <h1>Applying Algorithm to the Problem <a href="#abstract" class="top">#</a></h1>
+            <p>
+              We apply the algorithm over an image which each pixel is a node, and tell the algorithm if some pixel is a node that cannot get to (like a solid building). Then, applied the algorithm over it. In the end, we will get a path from our starting point to the end. And yet, solve our problem.
+            </p>
+          </div>
+        </section>
+        
+        <div id="ref" class="divider"></div>
+        <section class="columns">
+          <div class="column col-12">
+            <h1>References <a href="#abstract" class="top">#</a></h1>
+            <p>
+              <ul class="condensed">
+                <li>
+                  <a href="http://theory.stanford.edu/~amitp/GameProgramming/AStarComparison.html">Introduction to A* - Red Blob Games</a>
+                </li>
+                <li>
+                  <a href="http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html">Heuristics - Red Blob Games</a>
+                </li>
+                <li>
+                  <a href="https://youtu.be/ySN5Wnu88nE">A* (A Star) Search Algorithm - Computerphile</a>
+                </li>
+              </ul>
+            </p>
+          </div>
+        </section>
+        <!-- CONTENT STOP HERE -->
       </div>
     </div>
     <div class="divider"></div>
     <div class="columns">
-      <div class="column col-12">
-        <h1>A* search algorithm</h1>
-        <p>
-          A* search algorithm is the algorithm which use heuristic function in calculation for the shortest path. Because A* search algorithm did not apply calculation for every node in graph, it is very popular algorithm to use because of its good performance. When A* algorithm is applied, it performs calculation <span class="math">f(x) = g(x) + h(x)</span> to starting node’s neighbor nodes which <span class="math">g(x)</span> is the cost (how much it takes from starting node to it), and <span class="math">h(x)</span> is the heuristic value (how long from it to target node). By traversing to the next lowest <span class="math">f(x)</span> node and perform calculation to the node’s neighbors one by one, you will be ended up with the shortest path from the starting node to the target node.
-          <ul>Heuristic functions:
-            <li>Manhattan: <span class="math">D_M=\left|x_2-x_1\right|+\left|y_2-y_1\right|</span></li>
-            <li>Euclidean: <span class="math">D_E=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}</span></li>
-            <li>Chebyshev: <span class="math">D_C=\mathrm{max}(\left|x_2-x_1\right|,\left|y_2-y_1\right|)</span></li>
-          </ul>
-        </p>
-      </div>
+      <footer class="column col-12">
+        <div class="text-center">
+          Copyright &copy; <span id="year">2018</span> Suthep Chanchuphol and Nanthakorn Onsri<br>
+          <div class="small">
+              This project is part of ‘CPE121 Discrete Mathematics’ subject,<br>
+              Computer Engineering Department, King Mongkut’s University of Technology Thonburi.
+          </div>
+        </div>
+      </footer>
     </div>
-    <div class="divider"></div>
-    <div class="columns">
-      <div class="column col-12">
-        <h1>Applying algorithm to the problem</h1>
-        <p>
-          We apply the algorithm over an image which each pixel is a node, and tell the algorithm if some pixel is a node that cannot get to (like a solid building). Then, applied the algorithm over it. In the end, we will get a path from our starting point to the end. And yet, solve our problem.
-        </p>
-      </div>
-    </div>
-
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>

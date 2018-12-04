@@ -8,5 +8,8 @@
     katex.render(e.innerText, e, {
       throwOnError: false
     });
-  })
+  });
+
+  // Update copyright year
+  document.getElementById("year").innerText = new Date().getFullYear();
 }());
