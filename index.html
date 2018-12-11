@@ -26,10 +26,10 @@
         </div>
         <ul class="condensed"><b>How to play:</b>
           <li>
-            <b>Left click</b> (on available square) to set starting point.
+            <b>Left click</b> (on available square) to set a starting point.
           </li>
           <li>
-            <b>Right click</b> (or middle click) to set finish point.
+            <b>Right click</b> (or middle click) to set a finish point.
           </li>
         </ul>
         <div id="statusBox" class="text-center toast toast-warning">
@@ -38,7 +38,7 @@
       </div>
     </div>
     <div id="abstract" class="divider m-top-2"></div>
-    <div class="columns">
+    <div class="columns col-gapless">
       <aside class="column col-3 col-md-12">
       <ul class="menu">
         <li class="divider" data-content="TABLE OF CONTENTS"></li>
@@ -75,7 +75,7 @@
           <div class="column col-12">
             <h1>Abstract <a href="#abstract" class="top">#</a></h1>
             <p>
-              In this project, we would like to explore and solve ‘the most efficient path to transverse between buildings in KMUTT’ problem. In many times, standing at an intersection and asking yourself, “What is the shortest path to get to building A” or “How can I get to building B quickest”. This problem is difficult to solve for humans because of our perceptions which are different from people to people. In fact, we can lose our time and important opportunity by using inefficient path. Moreover, using online tools such as Google Maps can give you inaccurate answer as it can only process roadways, not footpath or shortcuts between buildings. So, we want to apply our discrete mathematics knowledge to it.
+              In this project, we would like to explore and solve ‘the most efficient path to transverse between buildings in KMUTT’ problem. In many times, standing at an intersection and asking yourself, “What is the shortest path to get to building A” or “How can I get to building B quickest”. This problem is difficult to solve for humans because of our perceptions which are different from people to people. In fact, we can lose our time and important opportunity by using inefficient path. Moreover, using online tools such as Google Maps can give you inaccurate answer as it can only process roadways, not footpath or shortcuts between buildings. So, we want to apply our discrete mathematics knowledge to this problem.
             </p>
           </div>
         </section>
@@ -114,14 +114,19 @@
         <section class="columns">
           <div class="column col-12">
             <h1>Heuristic Functions <a href="#abstract" class="top">#</a></h1>
-            <p>
-              <ul class="condensed">
-                <li>Manhattan: <span class="math">H_M=D\times\left(\left|x_2-x_1\right|+\left|y_2-y_1\right|\right)</span></li>
-                <li>Euclidean: <span class="math">H_E=D\times\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}</span></li>
-                <li>Chebyshev: <span class="math">H_C=D\times\max(\left|x_2-x_1\right|,\left|y_2-y_1\right|)</span></li>
-                <!-- <li>Octile:    <span class="math">H_O=D_1\cdot\left(\left|x_2-x_1\right|+\left|y_2-y_1\right|\right)+\left(D_2-2D_1\right)\cdot\min\left(\left|x_2-x_1\right|,\left|y_2-y_1\right|\right)</span></li> -->
-              </ul>
+            <p style="margin-bottom:0">
+              Heuristic functions is functions that estimated the distance between current node and target node. There are several heuristic functions:
+            </p>
+            <ul class="condensed" style="margin:0 0 .4rem 5ch">
+              <li>Manhattan: <span class="math">H_M=D\times\left(\left|x_2-x_1\right|+\left|y_2-y_1\right|\right)</span></li>
+              <li>Euclidean: <span class="math">H_E=D\times\sqrt{\left(x_2-x_1\right)^2+\left(y_2-y_1\right)^2}</span></li>
+              <li>Chebyshev: <span class="math">H_C=D\times\max\left(\left|x_2-x_1\right|,\left|y_2-y_1\right|\right)</span></li>
+            </ul>
+            <p style="margin: 0 0 .4rem">
               When <span class="math">D</span> is the cost of a move.
+            </p>
+            <p>
+              Each heuristic function fits in different settings of the algorithm. If you are using quarto-directional algorithm, Manhattan heuristic function will be the fittest. If you are using octo-directional algorithm which treat diagonal movement equally to side movement, Chebyshev will fit. And, if you can move freely in 2 dimentional space, Euclidean heuristic function will fit the most.
             </p>
           </div>
         </section>
@@ -131,7 +136,16 @@
           <div class="column col-12">
             <h1>A* Search Algorithm <a href="#abstract" class="top">#</a></h1>
             <p>
-              A* search algorithm is the algorithm which use heuristic function in calculation for the shortest path. Because A* search algorithm did not apply calculation for every node in graph, it is very popular algorithm to use because of its good performance. When A* algorithm is applied, it performs calculation <span class="math">f(x) = g(x) + h(x)</span> to starting node’s neighbor nodes which <span class="math">g(x)</span> is the cost (how much it takes from starting node to it), and <span class="math">h(x)</span> is the heuristic value (how long from it to target node). By traversing to the next lowest <span class="math">f(x)</span> node and perform calculation to the node’s neighbors one by one, you will be ended up with the shortest path from the starting node to the target node.
+              A* search algorithm is an algorithm which use heuristic function in calculation for the shortest path. Because A* search algorithm did not apply calculation for every node in the graph, it is very popular algorithm to use because of its good performance.
+            </p>
+            <p>
+              When A* algorithm is applied, it performs calculation <span class="math">f(x) = g(x) + h(x)</span> to neighbor nodes of the starting node, which <span class="math">g(x)</span> is the cost (how much it takes from the starting node to it), and <span class="math">h(x)</span> is the heuristic value (how long from it to the target node). By traversing to the next lowest <span class="math">f(x)</span> node and perform the same calculation to the node’s neighbors one by one, you will be ended up with the shortest path from the starting node to the target node.
+            </p>
+            <p>
+              The result will be considered optimal when heuristic function, that applied to the algorithm, is never overestimated the cost of the real cost. For example, you are walking from <i>Canteen</i> to <i>Witsawa Watthana building</i>. Your friend said, "<i>Female dormitory is close to Witsawa Watthana building!</i>" (Underestimated cost). You trust your friend so much that you started thinking about getting from there to your destination. But then, you will realize that the path from canteen to female dormitory is quite close even before reach the dormitory. Then, you will stop looking to that path and find better path.
+            </p>
+            <p>
+              Consider same example, but this time your friend said, "<i>The road in front of Classroom Buiding 4 takes a million kilometers to reach!</i>" (Overestimated cost). You still trust your friend so much and won't take any look at it. In the end, you will ended up with the worse path than the underestimate one.
             </p>
           </div>
         </section>
@@ -141,7 +155,15 @@
           <div class="column col-12">
             <h1>Applying Algorithm to the Problem <a href="#abstract" class="top">#</a></h1>
             <p>
-              We apply the algorithm over an image which each pixel is a node, and tell the algorithm if some pixel is a node that cannot get to (like a solid building). Then, applied the algorithm over it. In the end, we will get a path from our starting point to the end. And yet, solve our problem.
+              At first, we tried to make our own graph base on the map. But then, we realized that if we treat each pixel of the picture as a node, we could do it easier. So, we get a map picture of the university, and draw every single path that we know onto it.
+              <img src="./img/available_path.jpg" alt="A map and a path.">
+              Then, we scale down the image to considerable size so computer doesn't have to perform much calculation, but lower accuracy.
+              <img src="./img/lower_res_path.jpg" alt="Scaled down image.">
+              3. Our code convert the image into nodes by looking on pixel by pixel and create a node on available pixel and store it into 2D array.
+              <img src="./img/node_arr.jpg" alt="Node array.">
+              4. We apply the algorithm to the data. For the configuration, we let the algorithm going in all 8 directions, and we use Chebyshev's heuristic function because it is suitable for 8 directional movement.
+              <img src="./img/apply_algo.jpg" alt="Apply data to the algorithm.">
+              You can try our interactive map on <a href="#">the top of this page</a>.
             </p>
           </div>
         </section>
@@ -160,6 +182,12 @@
                 </li>
                 <li>
                   <a href="https://youtu.be/ySN5Wnu88nE">A* (A Star) Search Algorithm - Computerphile</a>
+                </li>
+                <li>
+                  <a href="https://stackoverflow.com/questions/10195780/proof-of-a-algorithms-optimality-when-heuristics-always-underestimates">Proof of A* algorithm's optimality when heuristics always underestimates - Stack Overflow</a>
+                </li>
+                <li>
+                  <a href="https://cs.stackexchange.com/questions/30778/why-is-the-a-search-heuristic-optimal-even-if-it-underestimates-costs">Why is the A* search heuristic optimal even if it underestimates costs? - Stack Exchange</a>
                 </li>
               </ul>
             </p>

@@ -128,7 +128,7 @@ function setup() {
     }
   }
 
-  // Start: Library, End: Vidsava Wattana
+  // Start: Library, End: Witsawa Watthana
   start = grid[63][45];
   end = grid[25][50];
 
@@ -137,7 +137,7 @@ function setup() {
 }
 
 function draw() {
-  background(0);
+  background(255);
   // draw kmutt map
   image(realMap, 0, 0);
 

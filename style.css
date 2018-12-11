@@ -52,6 +52,12 @@ p {
   text-align: justify;
 }
 
+p > img {
+  display: block;
+  margin: auto;
+  max-width: 80%;
+}
+
 footer .small {
   font-size: 80%;
   line-height: 1rem;
@@ -83,8 +89,10 @@ footer .small > br {
   white-space: nowrap;
 }
 
-.menu {
-  margin-right: .8rem;
+@media (min-width: 840px) {
+  .menu {
+    margin-right: 1.2rem;
+  }
 }
 
 .team {
