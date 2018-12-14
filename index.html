@@ -85,8 +85,15 @@
           <div class="column col-12">
             <h1>Graph Theory <a href="#abstract" class="top">#</a></h1>
             <p>
-              Soon!
+              Graph is a mathematical model that simulate problems that can be represent with dots (called Vertex or Node) and lines connected dots (called Edge). For example: train network, electrical circuit.
             </p>
+            <p style="margin-bottom:0">
+              A graph is consisted of two sets
+            </p>
+            <ol class="condensed" style="margin:0 0 .4rem">
+              <li>Set of the vertices (<span class="math">V(G)</span>)</li>
+              <li>Set of the edges (<span class="math">E(G)</span>)</li>
+            </ol>
           </div>
         </section>
         
@@ -95,7 +102,7 @@
           <div class="column col-12">
             <h1>Weighted Graph <a href="#abstract" class="top">#</a></h1>
             <p>
-              Soon!
+              Weighted graph is graphs that has a weight on the edge. The weight might represent the distance relatively in real life, or represent other relationship between nodes.
             </p>
           </div>
         </section>
@@ -104,9 +111,28 @@
         <section class="columns">
           <div class="column col-12">
             <h1>Graph Traversal <a href="#abstract" class="top">#</a></h1>
+            <p style="margin-bottom:0">There are 2 basic searching algorithm for a graph</p>
+            <ul class="condensed" style="margin:0 0 .4rem">
+              <li>
+                <strong>Breadth-first Search</strong>
+                <div style="margin-left:1.15rem">
+                  A search algorithm which mark current node visited, move to the next neighbor node, and repeat the process until it find a target node or completely visited all nodes.
+                </div>
+              </li>
+              <li>
+                <strong>Dijkstra's Algorithm</strong>
+                <div style="margin-left:1.15rem">
+                  A search algorithm which use priority queue by combining the weight from the starting node to its neighbors and sort in the queue. The priority queue gives the clue for the algorithm to take path that have the lowest cost. In the end, you will get the shortest path from the starting node to the target node.
+                </div>
+              </li>
+            </ul>
             <p>
-              Soon!
+              These two algorithms are good for weighted graph that has different weight. But if you put these algorithms in an equally weighted graph, both of them will work as the same algorithm. So, there is an modify version of Breath-first Search called ‘<strong>Greedy Best First Search</strong>’.
             </p>
+            <p>
+              Greedy Best First Search uses heuristic function to visit node which is closer to the target node. By visiting node by node that is closer and closer to the target, it is a very fast and effective algorithm with graph that have equal edge weight. However, it is not garunteed that the path is optimal or the shortest one.
+            </p>
+            <p>Yet, there is an algorithm that combined good side of both algorithm together called ‘A* Search Algorithm’ which will be explained later.</p>
           </div>
         </section>
         
@@ -117,7 +143,7 @@
             <p style="margin-bottom:0">
               Heuristic functions is functions that estimated the distance between current node and target node. There are several heuristic functions:
             </p>
-            <ul class="condensed" style="margin:0 0 .4rem 5ch">
+            <ul class="condensed" style="margin:0 0 .4rem">
               <li>Manhattan: <span class="math">H_M=D\times\left(\left|x_2-x_1\right|+\left|y_2-y_1\right|\right)</span></li>
               <li>Euclidean: <span class="math">H_E=D\times\sqrt{\left(x_2-x_1\right)^2+\left(y_2-y_1\right)^2}</span></li>
               <li>Chebyshev: <span class="math">H_C=D\times\max\left(\left|x_2-x_1\right|,\left|y_2-y_1\right|\right)</span></li>

@@ -48,7 +48,6 @@ h1:hover > a.top {
 }
 
 p {
-  text-indent: 5ch;
   text-align: justify;
 }
 
@@ -107,7 +106,7 @@ footer .small > br {
   margin-left: .8rem;
 }
 
-ul.condensed > li {
+ul.condensed > li, ol.condensed > li {
   margin: 0;
 }
 /*# sourceMappingURL=style.css.map */

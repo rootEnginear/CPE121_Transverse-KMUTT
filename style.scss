@@ -43,7 +43,7 @@ h1 {
 }
 
 p {
-  text-indent: 5ch;
+  // text-indent: 5ch;
   text-align: justify;
 
   > img {
@@ -100,7 +100,7 @@ footer .small {
   }
 }
 
-ul.condensed {
+ul.condensed, ol.condensed {
   > li {
     margin: 0;
   }
