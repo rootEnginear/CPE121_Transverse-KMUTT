@@ -13,6 +13,7 @@
       font-family: 'Montserrat', sans-serif;
       min-height: 100vh;
       background-image: linear-gradient(#311b92, #000);
+      user-select: none;
     }
   </style>
   <title>nyxLamp Control Panel</title>
@@ -90,31 +91,31 @@
       document.getElementById("blue").value = hexToRgb(hex).b;
       switch(hex){
         case '#ffffff':
-          callColorChange("fWhite");
+          callColorChange("White");
           break;
         case '#e1f5fe':
-          callColorChange("fSky")
+          callColorChange("Sky")
           break;
         case '#000000':
-          callColorChange("fBlack")
+          callColorChange("Black")
           break;
         case '#fffde7':
-          callColorChange("fCandle")
+          callColorChange("Candle")
           break;
         case '#ffe082':
-          callColorChange("fHalogen")
+          callColorChange("Halogen")
           break;
         case '#8bc34a':
-          callColorChange("fNature")
+          callColorChange("Nature")
           break;
         case '#f44336':
-          callColorChange("fRed")
+          callColorChange("Red")
           break;
         case '#4caf50':
-          callColorChange("fGreen")
+          callColorChange("Green")
           break;
         case '#3f51b5':
-          callColorChange("fBlue")
+          callColorChange("Blue")
           break;
       }
     }
