@@ -68,6 +68,7 @@
       <div class="col s4"><div onclick="changeColor('#3f51b5')" style="width:100%; text-align: center" class="chip indigo white-text">Blue</div></div>
     </div>
   </div>
+  <iframe src="http://192.168.4.1/Black" style="display:none"></iframe>
   <script>
     var currentColor = '#000000';
 
@@ -128,6 +129,9 @@
     function callColorChange(color){
       var xhr = new XMLHttpRequest();
       xhr.open('GET', `http://192.168.4.1/${color}`, true);
+      xhr.onload = function() {
+        console.log(xhr.response)
+      };
       xhr.send();
     }
   </script>
