@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
@@ -135,6 +136,48 @@
       xhr.send();
     }
   </script>
+  <script>
+      window.isUpdateAvailable = new Promise(function (resolve, reject) {
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', function () {
+            navigator.serviceWorker.register('./sw.js').then(function (reg) {
+              reg.onupdatefound = function(){
+                var installingWorker = reg.installing;
+                installingWorker.onstatechange = function(){
+                  switch (installingWorker.state) {
+                    case 'installed':
+                      if (navigator.serviceWorker.controller) {
+                        // new update available
+                        resolve(true);
+                      } else {
+                        // no update available
+                        resolve(false);
+                      }
+                      break;
+                  }
+                };
+              };
+              // Registration was successful
+              console.log('ServiceWorker registration successful with scope: ', reg.scope);
+            }).catch(function (err) {
+              // registration failed :(
+              console.log('ServiceWorker registration failed: ', err);
+            });
+          });
+        }
+      });
+      
+      // window.isUpdateAvailable.then(function(isAvailable){
+      //   isAvailable && M.toast({ html: 'An update available! Refresh & restart to see changes!' });
+      // });
+  
+      var runningVersion = 10204,
+          currentVersion = localStorage.getItem("currentVersion") || 0;
+      if(currentVersion < runningVersion){
+        // M.toast({html:'Yay! You have been updated to version 1.2.4!'});
+        localStorage.setItem("currentVersion",10204);
+      }
+    </script>
 </body>
 
 </html>

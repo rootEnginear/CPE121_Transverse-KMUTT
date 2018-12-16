@@ -1,0 +1,11 @@
+{
+  "name": "เราหารกันเหอะ",
+  "short_name": "หารไหม",
+  "theme_color": "#8bc34a",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "orientation": "portrait",
+  "start_url": "index.html",
+  "lang": "th",
+  "description": "PWA ที่สร้างมาเพื่อช่วยหารเงินโดยเฉพาะ เลิกทะเลาะกันได้ละ"
+}
